@@ -6,6 +6,7 @@ const MainContainer = styled.div`
     align-items: center;
     justify-content: center;
   }
+  flex-grow: 1;
   section{
     margin-top: 3vw;
     width:50vw;
@@ -136,6 +137,7 @@ const MainContainer = styled.div`
 
 function Assistenza(props) {
   return (
+      <>
       <MainContainer>
       <main>
           <section>
@@ -162,8 +164,9 @@ function Assistenza(props) {
               <button type="button">invia</button>
           </section>
       </main>
-    <footer><a onClick={()=>props.setPage(5)}>Assistenza.</a></footer>
     </MainContainer>
+    <footer><a onClick={()=>props.setPage(5)}>Assistenza.</a></footer>
+    </>
   );
 }
 

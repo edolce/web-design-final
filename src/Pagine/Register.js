@@ -6,6 +6,7 @@ import Google from "../img/login/Registrazione/Google.png";
 import Facebook from "../img/login/Registrazione/Facebook.png";
 import LinkedIn from "../img/login/Registrazione/Linkedin.png";
 import Persona from "../img/utente.jpeg";
+import {useEffect} from "react";
 
 const MainContainer = styled.div`
   * {
@@ -14,7 +15,7 @@ const MainContainer = styled.div`
   }
 
 
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   background-color: rgba(93, 94, 155, 0.8);
@@ -28,7 +29,7 @@ const MainContainer = styled.div`
     margin-right: 10vw;
     border-radius: 5vw;
     width: 45vw;
-    height: 55vw;
+    height: 95%;
     background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0px 12px 10px 0px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -78,8 +79,7 @@ const MainContainer = styled.div`
     margin-bottom: 4vw;
   }
 
-  form h3 {
-    margin-top: 1.5vw;
+  .end-lines {
     font-family: Eina01-ligher;
     color: #5D5E9B;
     font-size: 1.3vw;
@@ -241,6 +241,15 @@ const MainContainer = styled.div`
 
 function Register(props) {
 
+    useEffect(() => {
+        window.onclick = function (event) {
+            if (event.target !== document.getElementById("registrazione")) {
+                if (document.getElementById("registrazione"))
+                    props.close();
+            }
+        }
+    })
+
     const registration = async () => {
         const username = document.getElementById("username").value
         const email = document.getElementById("email").value
@@ -298,7 +307,7 @@ function Register(props) {
                     <img className="immagini" src={Facebook} alt=""/>
                     <img className="immagini" src={LinkedIn} alt=""/>
                 </div>
-                <h3>Support · Terms · Privacy</h3>
+                <h3 className="end-lines">Support · Terms · Privacy</h3>
             </div>
         </MainContainer>
     )

@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Header from "./Components/Header";
 import HomePage from "./Pagine/HomePage";
 import ExploreCV from "./Pagine/ExploreCV";
@@ -9,9 +9,11 @@ import Register from "./Pagine/Register";
 import Assistenza from "./Pagine/Assistenza";
 import Airtable from "airtable";
 import login from "./Pagine/Login";
+import ModifyCv from "./Pagine/ModifyCv";
 
 
 function App() {
+
     Airtable.configure({apiKey: 'pat8dg4JF7CXEfjJG.16925ba134fa0a0eb6e978bada7af8915f64208856d40fb176b3745112ba842b'})
     const curriculumTable = Airtable.base('appD7zFEQQV1CFqoL').table('Curriculums');
 
@@ -47,7 +49,7 @@ function App() {
         });
     });
 
-    const [page, setPage] = useState(5);
+    const [page, setPage] = useState(7);
 
     const [exploreCV, setExploreCV] = useState(curriculums);
     const [isLoginVisible, setLoginVisibility] = useState(false)
@@ -130,9 +132,13 @@ function App() {
 
     return (
         <div className="App">
-            {isLoginVisible && <Login checkLogin={checkLoginCredentials}/>}
+            {isLoginVisible && <Login checkLogin={checkLoginCredentials} close={
+                () => setLoginVisibility(false)
+            }/>}
             {isRegisterVisible && <Register register={register} registerSuccess={() => setRegisterVisibility(false)}
-                                            checkNicknameAndEmail={checkNicknameAndEmail}/>}
+                                            checkNicknameAndEmail={checkNicknameAndEmail}
+                                            close={() => setRegisterVisibility(false)}
+            />}
             {page !== 3 && page !== 4 && <Header isUserLogged={isLogged} setPage={(pageN) => setPage(pageN)}
                                                  enableLogin={() => setLoginVisibility(true)}
                                                  enableRegister={() => setRegisterVisibility(true)}
@@ -143,8 +149,10 @@ function App() {
                                                  }}/>}
             {page === 0 && <HomePage setPage={(pageN) => setPage(pageN)}/>}
             {page === 1 && <ExploreCV data={exploreCV}/>}
-            {page === 2 && <DataFiller/>}
+            {page === 2 && <DataFiller setPage={(pageN) => setPage(pageN)}/>}
             {page === 5 && <Assistenza setPage={(pageN) => setPage(pageN)}/>}
+            {/*page === 6 && <AreaPersonale setPage={(pageN) => setPage(pageN)} user={user}/>*/}
+            {page === 7 && <ModifyCv setPage={(pageN) => setPage(pageN)}/>}
         </div>
     );
 }

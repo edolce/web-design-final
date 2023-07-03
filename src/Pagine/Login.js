@@ -4,6 +4,7 @@ import Eye from "../img/login/Registrazione/Eye.png";
 import Google from "../img/login/Registrazione/Google.png";
 import Facebook from "../img/login/Registrazione/Facebook.png";
 import LinkedIn from "../img/login/Registrazione/Linkedin.png";
+import {useEffect} from "react";
 
 const MainContainer = styled.div`
   * {
@@ -12,7 +13,7 @@ const MainContainer = styled.div`
   }
 
 
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   background-color: rgba(93, 94, 155, 0.8);
@@ -25,7 +26,7 @@ const MainContainer = styled.div`
     margin-right: 10vw;
     border-radius: 5vw;
     width: 45vw;
-    height: 50vw;
+    height: 80%;
     background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0px 12px 10px 0px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -69,16 +70,16 @@ const MainContainer = styled.div`
     margin-top: 5vw;
   }
 
-  form h8 {
-    margin-top: 1.2vw;
+  #not-register {
+    margin-top: 0.6vw;
     font-family: Eina01-ligher;
     color: #5D5E9B;
     font-size: 1.3vw;
     width: 50%;
-    margin-bottom: 4vw;
+    margin-bottom: 1vw;
   }
 
-  form h3 {
+  .end-lines {
     margin-top: 1.5vw;
     font-family: Eina01-ligher;
     color: #5D5E9B;
@@ -219,7 +220,7 @@ const MainContainer = styled.div`
       padding: 1.2vw 0;
     }
 
-    #login h8 {
+    #not-register {
       margin-top: 2vw;
       font-size: 2.5vw;
       width: 63%;
@@ -236,13 +237,24 @@ const MainContainer = styled.div`
       height: 7.5vw;
     }
 
-    #login h3 {
+    .end-lines {
       font-size: 2.1vw;
     }
   }
 `
 
 function Login(props) {
+
+    useEffect(() => {
+        window.onclick = function (event) {
+            if (event.target !== document.getElementById("login")) {
+                if (document.getElementById("login"))
+                    props.close();
+            }
+        }
+    })
+
+
     return (
         <MainContainer>
             <div id="login">
@@ -266,13 +278,13 @@ function Login(props) {
                     }
                 }>Login</button>
 
-                <h8>Non sei ancora registrato?<a href="#">Clicca qui</a></h8>
+                <h5 id="not-register">Non sei ancora registrato?<a href="#">Clicca qui</a></h5>
                 <div className="loghi">
                     <img className="immagini" src={Google} alt=""/>
                     <img className="immagini" src={Facebook} alt=""/>
                     <img className="immagini" src={LinkedIn} alt=""/>
                 </div>
-                <h3>Support · Terms · Privacy</h3>
+                <h3 className="end-lines">Support · Terms · Privacy</h3>
             </div>
         </MainContainer>
     )

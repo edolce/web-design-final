@@ -11,8 +11,8 @@ function Header(props) {
         <header>
             <img id="logo-EmPloyable" src={Logo} alt="" onClick={() => props.setPage(0)}/>
             <nav>
-                <a className="nav-cv" onClick={() => props.setPage(1)}>Esplora CV</a>
-                <a className="nav-cv" onClick={() => props.setPage(2)}>Crea CV</a>
+                <a className="nav-cv" onClick={() => props.setPage(1)}>Curriculum</a>
+                <a className="nav-cv" onClick={() => props.setPage(0)}>Portfolio</a>
             </nav>
             <div id="profilo-utente" onClick={() => setDropdownDisplay(dropdownDisplay === 'none' ? 'flex' : 'none')}>
                 <img src={Utente} alt=""/>
@@ -25,8 +25,8 @@ function Header(props) {
                             </div>
                     ) : (
                         <div>
-                            <h2 onClick={props.enableLogin}> Accedi <div id="foto-profilo"><img src={Utente} alt=""/></div></h2>
-                            <h2 onClick={props.enableRegister}> Registrati </h2>
+                            <h2 onClick={()=>{setTimeout(props.enableLogin, 400);}}> Accedi <div id="foto-profilo"><img src={Utente} alt=""/></div></h2>
+                            <h2 onClick={()=>{setTimeout(props.enableRegister, 400);}}> Registrati </h2>
                         </div>
                     )
                     }

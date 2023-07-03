@@ -2,8 +2,10 @@ import styled from "styled-components";
 import Checkbox from "../img/ricercaPage/checkWhite.png";
 import ProfilePic from '../img/ricercaPage/profilo1.png';
 import {useEffect, useRef, useState} from "react";
+import * as PropTypes from "prop-types";
 
 const MainContainer = styled.div`
+
   #titolo {
     font-size: 3vw;
     text-align: center;
@@ -18,9 +20,13 @@ const MainContainer = styled.div`
     justify-content: center;
     float: left;
     padding-top: 3vw;
-    width: 25vw;
-    padding-left: 4vw;
+    width: 25%;
     border-right: 1px solid #57588F;
+    overflow-y: scroll;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   input[type="checkbox"] {
@@ -79,8 +85,8 @@ const MainContainer = styled.div`
   input[type="checkbox"]::before {
     content: "";
     display: inline-block;
-    width: 1.5vw;
-    height: 1.5vw;
+    width: 1.3vw;
+    height: 1.3vw;
     max-width: 5vw;
     max-height: 5vw;
     border-radius: 30%;
@@ -113,12 +119,12 @@ const MainContainer = styled.div`
   }
 
   aside .applica-resetta {
-    padding: 0.5vw 8vw;
+    padding: 0.5vw 4vw;
     background-color: rgb(102, 103, 171, 0.7);
     color: white;
     border-radius: 4vw;
     border: 0;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     font-family: Eina01-bold;
   }
 
@@ -133,7 +139,6 @@ const MainContainer = styled.div`
   .filtro {
     font-family: Eina01-regular;
     font-weight: normal;
-    margin-bottom: 3vw;
   }
 
   .filtro h3 {
@@ -141,7 +146,7 @@ const MainContainer = styled.div`
     cursor: pointer;
     color: #5D5E9B;
     width: 100%;
-    font-size: 2vw;
+    font-size: 1.4vw;
     margin-left: 0.9vw;
     height: auto;
     justify-content: space-between;
@@ -160,11 +165,12 @@ const MainContainer = styled.div`
   }
 
   .tendina-filtro {
-    font-size: 1.2vw;
+    font-size: 1.1vw;
     border-top-right-radius: 3vw;
     border-bottom-left-radius: 3vw;
     border-bottom-right-radius: 3vw;
     width: 70%;
+
     color: #000000;
     padding: 1.5vw 2.5vw;
     background-color: #C7C9FF;
@@ -187,6 +193,7 @@ const MainContainer = styled.div`
     opacity: 1;
     height: auto;
     transition: opacity 0.5s, height 0.5s;
+    margin-bottom: 2vw;
   }
 
   .tendina-filtro-testo {
@@ -199,8 +206,8 @@ const MainContainer = styled.div`
 
   .oggetto-lista {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    width: 2vw;
-    height: 2vw;
+    width: 1.5vw;
+    height: 1.5vw;
     margin-top: 0.5vw;
     border-radius: 100%;
     background-color: #6667AB;
@@ -279,17 +286,13 @@ const MainContainer = styled.div`
     background-image: url(../img/ricercaPage/foto3.png);
   }
 
-  .interfaccia-curriculum:nth-of-type(4) {
-    margin-bottom: 10vw;
-  }
-
   .interfaccia-curriculum {
     background-color: #C7C9FF;
     border-radius: 2vw;
+    margin-bottom: 2vw;
     width: 48%;
     height: 21vw;
     max-height: 60vw;
-    margin-top: 2vw;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: row;
@@ -349,11 +352,42 @@ const MainContainer = styled.div`
     color: #4B4C7B;
   }
 
+  @media screen and (min-width: 601px) {
+
+    overflow-y: hidden;
+    height: 83%;
+
+    aside {
+      padding-top: 1.5vw;
+    }
+
+    section {
+      padding-top: 1.5vw;
+      overflow-y: scroll;
+      height: 85%;
+    }
+
+    #elenco-filtri {
+      margin-top: 2vw;
+      margin-bottom: 2vw;
+    }
+
+    .test {
+      height: 100%;
+    }
+  }
   @media screen and (max-width: 600px) {
+
+
+    height: 100%;
+    position: relative;
+
+
     #titolo {
       font-size: 5vw;
       margin-top: 1vw;
     }
+
 
     /* Bottoni ordina e filtri*/
     #button-flex {
@@ -431,14 +465,31 @@ const MainContainer = styled.div`
 
     /* aside nascosto */
     aside {
-      display: flex;
       display: none;
+      overflow: scroll;
+      position: fixed;
+      background: rgba(75, 76, 123, 0.76);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .test {
+      padding-top: 4vw;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      overflow: scroll;
+      width: 80%;
+      height: 60%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgb(255, 255, 255);
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      float: left;
-      padding-top: 20vw;
-      width: 30%;
-      padding-left: 7%;
+      border-radius: 3vw;
     }
 
     #button-flex, #elenco-filtri {
@@ -494,8 +545,6 @@ const MainContainer = styled.div`
       border-radius: 4vw;
       border: 0;
       font-size: 3.2vw;
-      margin-top: 15%;
-      margin-left: 20%;
       font-family: Eina01-bold;
     }
 
@@ -660,9 +709,6 @@ const MainContainer = styled.div`
       background-image: url(../img/ricercaPage/foto3.png);
     }
 
-    .interfaccia-curriculum:nth-of-type(4) {
-      margin-bottom: 10vw;
-    }
 
     .interfaccia-curriculum {
       background-color: #C7C9FF;
@@ -716,6 +762,8 @@ const MainContainer = styled.div`
       font-family: Eina01-bold;
       color: #4B4C7B;
     }
+
+
   }
 `;
 
@@ -753,6 +801,15 @@ const GenericFilterDisplayed = (props) => {
     )
 }
 
+
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+ButtonContainer.propTypes = {children: PropTypes.node};
 
 function ExploreCV(props) {
 
@@ -833,12 +890,8 @@ function ExploreCV(props) {
         if (mediaQuery.matches && asideElement) {
             var asideDisplay = asideElement.style.display;
 
-            buttons.style.display = (asideDisplay === 'block') ? 'flex' : 'none';
-            filtri.style.display = (asideDisplay === 'block') ? 'flex' : 'none';
-            asideElement.style.display = (asideDisplay === 'block') ? 'none' : 'block';
-            asideElement.style.width = (asideDisplay === 'block') ? '0' : '100%';
-            asideElement.style.border = (asideDisplay === 'block') ? '0' : '';
-            sectionElement.style.display = (asideDisplay === 'block') ? 'flex' : 'none';
+            asideElement.style.display = (asideDisplay === 'flex') ? 'none' : 'flex';
+            asideElement.style.border = (asideDisplay === 'flex') ? '0' : '';
         }
     }
 
@@ -862,6 +915,7 @@ function ExploreCV(props) {
                 }/>)}
             </div>
             <aside>
+                <div className="test">
                 <form action="">
                     <div className="filtro">
                         <span id="filtro1">
@@ -943,19 +997,24 @@ function ExploreCV(props) {
                         </span>
                     </div>
                 </form>
-                <button className="applica-resetta" type="button" onClick={applyFilters}>Applica</button>
-                <button className="applica-resetta" type="button" onClick={
-                    () => {
-                        //uncheck all checkboxes
-                        const checkboxes = document.querySelectorAll("input[type=checkbox]");
-                        checkboxes.forEach((checkbox) => {
-                            checkbox.checked = false;
-                        });
-                        //remove all filters from state
-                        setFilters([]);
-                    }
-                }>Resetta
-                </button>
+                <ButtonContainer>
+                    <button className="applica-resetta" type="button" onClick={applyFilters}>Applica</button>
+                    <button className="applica-resetta" type="button" onClick={
+                        () => {
+                            //uncheck all checkboxes
+                            const checkboxes = document.querySelectorAll("input[type=checkbox]");
+                            checkboxes.forEach((checkbox) => {
+                                checkbox.checked = false;
+                            });
+                            //remove all filters from state
+                            setFilters([]);
+                        }
+                    }>Resetta
+                    </button>
+
+                </ButtonContainer>
+
+            </div>
             </aside>
             <section>
                 {/*<div className="interfaccia-portfolio">*/}
@@ -980,3 +1039,6 @@ function ExploreCV(props) {
 }
 
 export default ExploreCV;
+
+
+// TODO: add filters Absolute front

@@ -29,6 +29,8 @@ header{
     min-height: 15vh;
     max-height: 17vh;
     width: 100%;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 header img{
     cursor: pointer;
@@ -49,21 +51,23 @@ nav{
 
 nav a{
     margin-top:2.8vw;
-    padding:0.3vw 3vw;
+    padding:0.3vw 3.5vw;
     text-decoration: none;
-    font-family: Eina01-regular;
     background-color: #4B4C7B;
-    font-size: 1.7vw;
-    color:white;
-    border-radius:15vw;
+    border-radius:1vw;
+    color: #FFF;
+    font-size: 1.5vw;
+    font-family: Eina01-Regular;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 nav a:hover{
     opacity:90%;
 }
-
 .nav-cv:first-of-type{
-    margin-right: 2vw;
-    padding:0.3vw 2vw;
+    margin-right: 6vw;
+    padding:0.3vw 1.5vw;
 }
 header #profilo-utente{
     cursor: pointer;
@@ -74,7 +78,7 @@ header #profilo-utente{
     margin-right: 3vw;
     width: 5.2vw;
     height: 5vw;
-    border-radius: 2vw;
+    border-radius: 1.5vw;
     background-color: #4b4c7b;
 }
 header #profilo-utente:hover{
@@ -98,8 +102,9 @@ header #profilo-utente img{
     box-shadow: 0px 12px 10px 0px rgba(0, 0, 0, 0.25);
     top: 8.2vw;
     right: 5.5vw;
-    width:30vw;
+    width:25vw;
     height: 12vw;
+    z-index: 100;
 }
 .dropdown h2:first-child{
     margin-top: 2vw;
@@ -145,7 +150,7 @@ header #profilo-utente img{
     }
     nav a{
         margin-top:8vw;
-        padding:0.2vw 4vw 0.5vW 4VW;
+        padding:0.2vw 4vw 0.5VW 4VW;
         text-decoration: none;
         font-family: Eina01-regular;
         background-color: #4B4C7B;
@@ -194,7 +199,7 @@ header #profilo-utente img{
     header{
         height:1vw;
         max-height: 3vw;
-        min-height: 12vw;
+        min-height: 10vw;
         width: 100%;
     }
     header img{
@@ -203,22 +208,27 @@ header #profilo-utente img{
         margin-top: 3vw;
     }
     nav a{
-        margin-top:5vw;
-        padding:0.2vw 4vw;
+        margin-top: 5vw;
+        font-size: 1.5vw;
+        padding:0.5vw 2vw;
+    }
+    .nav-cv:first-of-type{
+        padding:0.5vw 2vw;
+    }
+    .nav-cv{
         text-decoration: none;
         font-family: Eina01-regular;
         background-color: #4B4C7B;
-        font-size: 2vw;
         color:white;
-        border-radius:15vw;
+        border-radius:1.3vw;
     }
 
     header #profilo-utente{
         margin-top:5vw;
         margin-right: 3vw;
-        width: 6vw;
-        height: 6vw;
-        border-radius: 2.2vw;
+        width: 5.2vw;
+        height: 5.2vw;
+        border-radius: 1.8vw;
     }
 
     header #profilo-utente img{
@@ -228,15 +238,15 @@ header #profilo-utente img{
     .dropdown {
         top: 13vw;
         right: 5.5vw;
-        width:40vw;
-        height: 15vw;
+        width:20vw;
+        height: 10vw;
     }
     .dropdown h2{
-        font-size: 3.4vw;
+        font-size: 1.5vw;
     }
     .dropdown h2 #foto-profilo{
-        width:5vw;
-        height:5vw;
-        border-radius: 3vw;
+        width:2vw;
+        height:2vw;
+        border-radius: 1vw;
     }
 }
