@@ -803,17 +803,17 @@ const GenericFilterDisplayed = (props) => {
 
 
 const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `
 
 ButtonContainer.propTypes = {children: PropTypes.node};
 
 function ExploreCV(props) {
 
-    const [filters, setFilters] = useState(["primo", "secondo", "terzo"]);
+    const [filters, setFilters] = useState(["Design", "Inglese"]);
 
     const filtroRefs = useRef([]);
 
@@ -837,11 +837,7 @@ function ExploreCV(props) {
                     if (window.innerWidth < 800) {
                         oggettoLista.style.marginTop = "5vw";
                     } else {
-                        if (h3Filtro.id === "filtro2-h3") {
-                            oggettoLista.style.marginTop = "5.5vw";
-                        } else {
-                            oggettoLista.style.marginTop = "2.6vw";
-                        }
+                        oggettoLista.style.marginTop = "2.6vw";
                     }
                     tendinaFiltroDiv.classList.add("mostra");
                 }
@@ -869,7 +865,6 @@ function ExploreCV(props) {
         }
 
 
-
         //check all checkbox filters
         const checkboxes = document.querySelectorAll("input[type=checkbox]");
         const checked = [];
@@ -895,11 +890,30 @@ function ExploreCV(props) {
         }
     }
 
+
+    //if filter tab is open, and window is resized to mobile, and you click outside the filter tab, it closes
+    useEffect(() => {
+        //if login tab is open, skip
+        if (document.getElementById("login")) return;
+        if (document.getElementById("registrazione")) return;
+        window.onclick = function (event) {
+            console.log(event.target);
+            if (!document.getElementById("filter-tab-father")) return;
+            if (document.getElementById("filter-tab-father").style.display === "none") return;
+            if (window.innerWidth < 600) {
+                if (event.target === document.getElementById("filter-tab-father"))
+                    hideShowAside();
+            }
+        }
+    })
+
     return (
         <MainContainer>
             <div id="button-flex">
                 <button id="button-ordina">Ordina</button>
-                <button id="button-filtri" onClick={hideShowAside}>Filtri
+                <button id="button-filtri" onClick={() => {
+                    setTimeout(hideShowAside, 100);
+                }}>Filtri
                 </button>
             </div>
 
@@ -914,25 +928,25 @@ function ExploreCV(props) {
                     }
                 }/>)}
             </div>
-            <aside>
-                <div className="test">
-                <form action="">
-                    <div className="filtro">
+            <aside id="filter-tab-father">
+                <div className="test" id="filter-tab">
+                    <form action="">
+                        <div className="filtro">
                         <span id="filtro1">
                             <div className="oggetto-lista"></div>
                             <div className="tendina-filtro-testo">
                                 <h3 id="filtro1-h3">Titolo di studi</h3>
                                 <div className="tendina-filtro">
-                                    <span><input type="checkbox" name="primo" value="primo"/> Diploma</span>
-                                    <span><input type="checkbox" name="secondo"
-                                                 value="secondo"/> Laurea Triennale</span>
-                                    <span><input type="checkbox" name="terzo" value="terzo"/> Laurea Magistrale</span>
-                                    <span><input type="checkbox" name="quarto" value="quarto"/> Dottorato</span>
+                                    <span><input type="checkbox" name="Diploma" value="Diploma"/> Diploma</span>
+                                    <span><input type="checkbox" name="Laurea Triennale"
+                                                 value="Laurea Triennale"/> Laurea Triennale</span>
+                                    <span><input type="checkbox" name="Laurea Magistrale" value="Laurea Magistrale"/> Laurea Magistrale</span>
+                                    <span><input type="checkbox" name="Dottorato" value="Dottorato"/> Dottorato</span>
                                 </div>
                             </div>
                         </span>
-                    </div>
-                    <div className="filtro">
+                        </div>
+                        <div className="filtro">
                         <span id="filtro2">
                             <div className="oggetto-lista"></div>
                             <div className="tendina-filtro-testo"
@@ -945,15 +959,15 @@ function ExploreCV(props) {
                                  }}>
                                 <h3 id="filtro2-h3">Conoscenza linguistica</h3>
                                 <div className="tendina-filtro">
-                                    <span><input type="checkbox" name="quinto" value="quinto"/> Inglese</span>
-                                    <span><input type="checkbox" name="sesto" value="sesto"/> Francese</span>
-                                    <span><input type="checkbox" name="settimo" value="settimo"/> Spagnolo</span>
-                                    <span><input type="checkbox" name="ottavo" value="ottavo"/> Tedesco</span>
+                                    <span><input type="checkbox" name="Inglese" value="Inglese"/> Inglese</span>
+                                    <span><input type="checkbox" name="Francese" value="Francese"/> Francese</span>
+                                    <span><input type="checkbox" name="Spagnolo" value="Spagnolo"/> Spagnolo</span>
+                                    <span><input type="checkbox" name="Tedesco" value="Tedesco"/> Tedesco</span>
                                 </div>
                             </div>
                         </span>
-                    </div>
-                    <div className="filtro">
+                        </div>
+                        <div className="filtro">
                         <span id="filtro3">
                             <div className="oggetto-lista"></div>
                             <div className="tendina-filtro-testo"
@@ -966,15 +980,16 @@ function ExploreCV(props) {
                                  }}>
                                 <h3 id="filtro3-h3">Settore</h3>
                                 <div className="tendina-filtro">
-                                    <span><input type="checkbox" name="nono" value="nono"/> Inglese</span>
-                                    <span><input type="checkbox" name="decimo" value="decimo"/> Francese</span>
-                                    <span><input type="checkbox" name="undicesimo" value="undicesimo"/> Spagnolo</span>
-                                    <span><input type="checkbox" name="dodicesimo" value="dodicesimo"/> Tedesco</span>
+                                    <span><input type="checkbox" name="Ingegneria" value="Ingegneria"/> Ingegneria</span>
+                                    <span><input type="checkbox" name="Econmia" value="Econmia"/> Econmia</span>
+                                    <span><input type="checkbox" name="Design" value="Design"/> Design</span>
+                                    <span><input type="checkbox" name="Matematica" value="Matematica"/> Matematica</span>
+                                    <span><input type="checkbox" name="Fisica" value="Fisica"/> Fisica</span>
                                 </div>
                             </div>
                         </span>
-                    </div>
-                    <div className="filtro">
+                        </div>
+                        <div className="filtro">
                         <span id="filtro4">
                             <div className="oggetto-lista"></div>
                             <div className="tendina-filtro-testo"
@@ -987,34 +1002,33 @@ function ExploreCV(props) {
                                  }}>
                                 <h3 id="filtro4-h3">Competenze</h3>
                                 <div className="tendina-filtro">
-                                    <span><input type="checkbox" name="tredicesimo" value="tredicesimo"/> Inglese</span>
-                                    <span><input type="checkbox" name="quattordicesimo" value="quattordicesimo"/> Francese</span>
-                                    <span><input type="checkbox" name="quindicesimo"
-                                                 value="quindicesimo"/> Spagnolo</span>
-                                    <span><input type="checkbox" name="sedicesimo" value="sedicesimo"/> Tedesco</span>
+                                    <span><input type="checkbox" name="Problem solving" value="Problem solving"/> Problem solving</span>
+                                    <span><input type="checkbox" name="Leadership" value="Leadership"/> Leadership</span>
+                                    <span><input type="checkbox" name="Teamwork" value="Teamwork"/> Teamwork</span>
+                                    <span><input type="checkbox" name="Comunicazione" value="Comunicazione"/> Comunicazione</span>
                                 </div>
                             </div>
                         </span>
-                    </div>
-                </form>
-                <ButtonContainer>
-                    <button className="applica-resetta" type="button" onClick={applyFilters}>Applica</button>
-                    <button className="applica-resetta" type="button" onClick={
-                        () => {
-                            //uncheck all checkboxes
-                            const checkboxes = document.querySelectorAll("input[type=checkbox]");
-                            checkboxes.forEach((checkbox) => {
-                                checkbox.checked = false;
-                            });
-                            //remove all filters from state
-                            setFilters([]);
-                        }
-                    }>Resetta
-                    </button>
+                        </div>
+                    </form>
+                    <ButtonContainer>
+                        <button className="applica-resetta" type="button" onClick={applyFilters}>Applica</button>
+                        <button className="applica-resetta" type="button" onClick={
+                            () => {
+                                //uncheck all checkboxes
+                                const checkboxes = document.querySelectorAll("input[type=checkbox]");
+                                checkboxes.forEach((checkbox) => {
+                                    checkbox.checked = false;
+                                });
+                                //remove all filters from state
+                                setFilters([]);
+                            }
+                        }>Resetta
+                        </button>
 
-                </ButtonContainer>
+                    </ButtonContainer>
 
-            </div>
+                </div>
             </aside>
             <section>
                 {/*<div className="interfaccia-portfolio">*/}

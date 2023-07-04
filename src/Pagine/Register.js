@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-import Email from "../img/login/Registrazione/Email.png";
+import Email from "../img/login/Registrazione/email.png";
 import Eye from "../img/login/Registrazione/Eye.png";
 import Google from "../img/login/Registrazione/Google.png";
 import Facebook from "../img/login/Registrazione/Facebook.png";
 import LinkedIn from "../img/login/Registrazione/Linkedin.png";
-import Persona from "../img/utente.jpeg";
+import Persona from "../img/login/Registrazione/user.png";
 import {useEffect} from "react";
 
 const MainContainer = styled.div`
@@ -38,6 +38,24 @@ const MainContainer = styled.div`
     flex-direction: column;
   }
 
+  input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus{
+    outline: none;
+    color: black;
+    border-color: #C7C9FF;
+    background-color: #C7C9FF;
+  }
+
+  input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="email"]::placeholder{
+    font-family: Eina01-bold;
+    font-size: 1.1vw;
+    color: white;
+  }
+
+  input:focus::placeholder{
+    outline: none;
+    color: black!important;
+  }
+
   #registrazione h1 {
     font-size: 2.5vw;
     font-family: Eina01-bold, sans-serif;
@@ -47,12 +65,13 @@ const MainContainer = styled.div`
   }
 
   .inserisci img {
-    width: 1.4vw;
+
+    width: 3.2vw;
     margin-left: 1vw;
   }
 
   .inserisci:nth-of-type(2) img {
-    width: 1.7vw;
+    width: 3.5vw;
     margin-left: 0.9vw;
   }
 
@@ -114,7 +133,7 @@ const MainContainer = styled.div`
   #registrazione a:hover {
     font-weight: bold;
   }
-
+  
   button {
     width: 35%;
     margin-top: 5vw;
@@ -123,14 +142,16 @@ const MainContainer = styled.div`
     font-family: Eina01-Bold, sans-serif;
     font-size: 1.3vw;
     text-align: center;
-    background-color: #6667AB;
+    background-color: rgb(102, 103, 171,0.6);
     color: rgb(255, 255, 255, 0.7);
     padding: 0.5vw 0;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
   }
 
   button:hover {
     scale: 0.95;
+    background-color: rgb(102, 103,171,1);
   }
 
   input {
@@ -243,9 +264,8 @@ function Register(props) {
 
     useEffect(() => {
         window.onclick = function (event) {
-            if (event.target !== document.getElementById("registrazione")) {
-                if (document.getElementById("registrazione"))
-                    props.close();
+            if (event.target === document.getElementById("registrazione-util")) {
+                props.close();
             }
         }
     })
@@ -280,7 +300,7 @@ function Register(props) {
     }
 
     return (
-        <MainContainer>
+        <MainContainer id="registrazione-util">
             <div id="registrazione">
                 <h1>Registrati</h1>
                 <div className="inserisci">
@@ -288,7 +308,7 @@ function Register(props) {
                     <img src={Email} alt=""/>
                 </div>
                 <div className="inserisci">
-                    <input type="username" name="username" id="username" placeholder="Username" required/>
+                    <input type="text" name="username" id="username" placeholder="Username" required/>
                     <img src={Persona} alt=""/>
                 </div>
                 <div className="inserisci">

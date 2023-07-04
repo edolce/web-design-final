@@ -9,6 +9,7 @@ import Group47Img from '../img/ModificaProfilo/Group 47.png';
 import cubesImg from '../img/ModificaProfilo/3cubes.png';
 import strutturaImg from '../img/ModificaProfilo/struttura.png';
 import {useState} from "react";
+import Curriculum from "./Curriculum/Curriculum";
 
 const MainContainer = styled.div`
   flex-grow: 1;
@@ -86,6 +87,7 @@ const MainContainer = styled.div`
     height: 45vw;
     border-radius: 2vw;
     box-shadow: 0px 12px 10px 0px rgba(0, 0, 0, 0.25);
+    overflow-y: scroll;
   }
 
   .icone-tendina {
@@ -271,6 +273,8 @@ const MainContainer = styled.div`
       width: 40%;
       height: 55vw;
       box-shadow: 0px 12px 10px 0px rgba(0, 0, 0, 0.25);
+      overflow-y: scroll;
+      
     }
   }
   @media screen and (max-width: 600px) {
@@ -473,7 +477,9 @@ const ModifyCv = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div id="scheda-curriculum"></div>
+                        <div id="scheda-curriculum">
+                            <Curriculum/>
+                        </div>
                     </section>
                     <div className="barra-icone barraInf-icone">
                         <div className="div-icona">

@@ -20,7 +20,7 @@ function Header(props) {
 
                     {props.isUserLogged ? (
                             <div>
-                                <h2 onClick={() => props.setPage(3)}> Profilo <div id="foto-profilo"><img src={Utente} alt=""/></div></h2>
+                                <h2 onClick={() => props.setPage(6)}> Profilo <div id="foto-profilo"><img src={Utente} alt=""/></div></h2>
                                 <h2 onClick={props.disableLogin}> Log Out </h2>
                             </div>
                     ) : (

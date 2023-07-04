@@ -87,6 +87,7 @@ const Form3 = (props) => {
             })
         })
         if (filled) {
+            props.saveData();
             props.changeForm(4);
         } else {
 

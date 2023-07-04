@@ -112,6 +112,7 @@ function Form4(props) {
         })
 
         if (allFilled) {
+            props.saveData();
             props.changeForm(5);
         } else {
             //find empty fields and change color

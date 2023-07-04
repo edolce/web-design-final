@@ -50,6 +50,7 @@ const Form1 = (props) => {
         }
         if (allFilled) {
             props.changeForm(2);
+            props.saveData();
         }
         else {
             //find empty fields and change color

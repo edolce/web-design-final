@@ -1268,28 +1268,34 @@ const UpperBar = (props) => {
 
 function DataFiller(props) {
 
+    console.log("DATA2",props.curriculumData);
 
-    if(JSON.parse(localStorage.getItem("data"))===null){
+    if(localStorage.getItem("data")===null){
 
-        localStorage.setItem("data", JSON.stringify(
-            {
-                form1: {
-                    "Nome": "",
-                    "Cognome": "",
-                    "Indirizzo": "",
-                    "Email": "",
-                    "Città": "",
-                    "CAP": "",
-                    "Numero di telefono": ""
-                },
-                form2: {},
-                form3: [],
-                form4: {
-                    "linguistiche": [],
-                    "generic": []
+
+        if(props.curriculumData!==undefined){
+            localStorage.setItem("data", JSON.stringify(props.curriculumData));
+        }else{
+            localStorage.setItem("data", JSON.stringify(
+                {
+                    form1: {
+                        "Nome": "",
+                        "Cognome": "",
+                        "Indirizzo": "",
+                        "Email": "",
+                        "Città": "",
+                        "CAP": "",
+                        "Numero di telefono": ""
+                    },
+                    form2: {},
+                    form3: [],
+                    form4: {
+                        "linguistiche": [],
+                        "generic": []
+                    }
                 }
-            }
-        ));
+            ));
+        }
     }
     const [data, setData] = useState(JSON.parse(localStorage.getItem("data")));
 
@@ -1305,6 +1311,11 @@ function DataFiller(props) {
 
     const [form, setForm] = useState(1);
 
+    //save data on database
+    const saveData = () => {
+        props.pushCurriculumData(data);
+    }
+
     return (
         <MainContainer>
 
@@ -1315,24 +1326,31 @@ function DataFiller(props) {
                     {form === 1 &&
                         <Form1 changeForm={setForm}
                                updateData={(dataUp) => updateData(1, dataUp)} data={data.form1}
+                               saveData={saveData}
                         />
                     }
                     {form === 2 &&
                         <Form2 changeForm={setForm}
                                updateData={(dataUp) => updateData(2, dataUp)} data={data.form2}
+                               saveData={saveData}
                         />
                     }
                     {form === 3 && <Form3 changeForm={setForm}
                                           updateData={(dataUp) => updateData(3, dataUp)} data={data.form3}
+                                          saveData={saveData}
                         />
                     }
                     {form === 4 && <Form4 changeForm={setForm}
                                             updateData={(dataUp) => updateData(4, dataUp)} data={data.form4}
+                                          saveData={saveData}
                     />}
                     {form === 5 && <Form5 changeForm={setForm}
                                             updateData={(dataUp) => updateData(5, dataUp)} data={data.form5}
+                                          saveData={saveData}
                     />}
-                    {form === 6 && <Form6 changeForm={setForm}/>}
+                    {form === 6 && <Form6 changeForm={setForm} setPage={(i)=>{
+                        props.setPage(i);
+                    }}/>}
                 </section>
             </main>
         </MainContainer>

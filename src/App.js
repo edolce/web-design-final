@@ -10,6 +10,7 @@ import Assistenza from "./Pagine/Assistenza";
 import Airtable from "airtable";
 import login from "./Pagine/Login";
 import ModifyCv from "./Pagine/ModifyCv";
+import AreaPersonale from "./Pagine/AreaPersonale";
 
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
     const curriculumTable = Airtable.base('appD7zFEQQV1CFqoL').table('Curriculums');
 
     const userTable = Airtable.base('appD7zFEQQV1CFqoL').table('Users');
+
+    const curriculumCreationTable = Airtable.base('appD7zFEQQV1CFqoL').table('CurriculumCreation');
 
     let curriculums = []
 
@@ -37,6 +40,7 @@ function App() {
                 //insert id in fileds
                 {
                     "id": record["id"],
+                    "Id Utente": record["fields"]["Id Utente"],
                     "fullName": record["fields"]["full-name"],
                     "email": record["fields"]["email"],
                     "address": record["fields"]["address"],
@@ -49,7 +53,9 @@ function App() {
         });
     });
 
-    const [page, setPage] = useState(7);
+
+
+    const [page, setPage] = useState(0);
 
     const [exploreCV, setExploreCV] = useState(curriculums);
     const [isLoginVisible, setLoginVisibility] = useState(false)
@@ -73,6 +79,7 @@ function App() {
                         "email": record["fields"]["email"],
                         "profileImage": record["fields"]["profile-image"][0]["url"]
                     })
+                    getCurriculumData(record)
                 }
             });
         });
@@ -81,7 +88,6 @@ function App() {
 
     const checkNicknameAndEmail = async (username, email) => {
         const users = [];
-
         try {
             const records = await Airtable.base('appD7zFEQQV1CFqoL').table('Users').select().all();
 
@@ -130,6 +136,72 @@ function App() {
 
     const [isRegisterVisible, setRegisterVisibility] = useState(false)
 
+
+    const pushCurriculumData = async (data) => {
+        //check if user already has a curriculum
+        const records = await curriculumCreationTable.select().all();
+        let userHasCurriculum = false;
+        records.forEach((record) => {
+            if (record["fields"]["user_id"] === user["id"]) {
+                userHasCurriculum = true;
+            }
+        });
+
+        if (userHasCurriculum) {
+            //update
+            const records = await curriculumCreationTable.select().all();
+            records.forEach((record) => {
+                if (record["fields"]["user_id"] === user["id"]) {
+                    curriculumCreationTable.update([
+                        {
+                            "id": record["id"],
+                            "fields": {
+                                "data": JSON.stringify(data)
+                            }
+                        }
+                    ]);
+                }
+            });
+        }else {
+            await curriculumCreationTable.create([
+                {
+                    "fields": {
+                        "user_id": user["id"],
+                        "data": JSON.stringify(data)
+                    }
+                }
+            ]);
+        }
+    }
+
+
+    const saveProfileImage = (image, id) => {
+        // userTable.update([
+        //     {
+        //         "Id Utente": id,
+        //         "fields": {
+        //             "profile-image": [
+        //                 {
+        //                     "url": image
+        //                 }
+        //             ]
+        //         }
+        //     }
+        // ])
+    }
+
+    const getCurriculumData = async (user) => {
+        const records = await curriculumCreationTable.select().all();
+        records.forEach((record) => {
+            if (record["fields"]["user_id"] === user["id"]) {
+                setCurriculumData(JSON.parse(record["fields"]["data"]));
+            }
+        });
+    }
+
+    const [curriculumData, setCurriculumData] = useState(null);
+
+
     return (
         <div className="App">
             {isLoginVisible && <Login checkLogin={checkLoginCredentials} close={
@@ -149,9 +221,9 @@ function App() {
                                                  }}/>}
             {page === 0 && <HomePage setPage={(pageN) => setPage(pageN)}/>}
             {page === 1 && <ExploreCV data={exploreCV}/>}
-            {page === 2 && <DataFiller setPage={(pageN) => setPage(pageN)}/>}
+            {page === 2 && <DataFiller setPage={(pageN) => setPage(pageN)} pushCurriculumData={pushCurriculumData} curriculumData={curriculumData}/>}
             {page === 5 && <Assistenza setPage={(pageN) => setPage(pageN)}/>}
-            {/*page === 6 && <AreaPersonale setPage={(pageN) => setPage(pageN)} user={user}/>*/}
+            {page === 6 && <AreaPersonale setPage={(pageN) => setPage(pageN)} user={user} updateProf={saveProfileImage}/>}
             {page === 7 && <ModifyCv setPage={(pageN) => setPage(pageN)}/>}
         </div>
     );
